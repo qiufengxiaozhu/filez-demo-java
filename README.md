@@ -1,8 +1,8 @@
-# Filez Demo - 文档管理集成示例项目（中文注释版本）
+# Filez Demo Java - 文档管理集成示例项目
 
 ## 项目简介
 
-Filez Demo 是一个基于 Spring Boot 的文档管理集成示例项目，主要用于演示如何与 Filez 文档中台进行集成。项目提供了完整的文档上传、下载、编辑、预览、对比等功能，并支持与第三方文档服务的无缝集成。
+Filez Demo Java 是一个基于 Spring Boot 的文档管理集成示例项目，主要用于演示如何与 Filez 文档中台进行集成。项目提供了完整的文档上传、下载、删除接口，用户认证、文件元信息修改等功能。并保留了页面菜单上编辑、预览的功能入口（点击文件名进入预览页面，点击编辑按钮打开编辑页面），用户仅需实现业务逻辑即可，方便快速与Filez文档中台进行集成对接。
 
 ## 核心功能
 
@@ -32,7 +32,6 @@ filez-demo/
 ├── src/main/java/com/filez/demo/
 │   ├── common/                # 公共组件
 │   │   ├── aspect/            # AOP切面 (日志记录)
-│   │   ├── constant/          # 常量定义
 │   │   ├── context/           # 上下文管理 (用户上下文)
 │   │   ├── interceptor/       # 拦截器 (登录拦截)
 │   │   ├── listener/          # 监听器
@@ -41,20 +40,17 @@ filez-demo/
 │   │   ├── DatabaseConfig.java    # 数据库配置
 │   │   ├── DemoConfig.java        # 业务配置
 │   │   ├── SwaggerConfig.java     # API文档配置
-│   │   └── ZOfficeConfig.java     # ZOffice集成配置
 │   ├── controller/            # 控制器层
 │   │   ├── LoginController.java   # 登录控制器
 │   │   ├── HomeController.java    # 主页控制器
 │   │   ├── FileController.java    # 文件操作控制器
-│   │   └── ZOfficeController.java # ZOffice集成控制器
 │   ├── dao/                   # 数据访问层
 │   ├── entity/                # 实体类
 │   ├── model/                 # 数据模型
 │   ├── service/               # 业务逻辑层
 │   └── FilezDemoApplication.java  # 启动类
 ├── src/main/resources/
-│   ├── application.yml        # 主配置文件
-│   ├── zoffice.yml           # ZOffice集成配置
+│   ├── application.yml       # 主配置文件
 │   ├── mapper/               # MyBatis映射文件
 │   ├── sql/                  # 数据库脚本
 │   ├── static/               # 静态资源
@@ -167,7 +163,7 @@ pkill -f filez-demo
 - **主页**: http://localhost:8000
 - **登录页**: http://localhost:8000/login
 - **API文档**: http://localhost:8000/doc.html
-- **文件管理**: http://localhost:8000/home/local
+- **文件管理**: http://localhost:8000/home
 
 默认登录账号：
 - 用户名: `admin`
@@ -187,7 +183,8 @@ pkill -f filez-demo
 - `POST /v2/context/file/batchOp/delete` - 批量删除文件
 - `POST /v2/context/file/new` - 新建文件
 
-### ZOffice 集成接口
+### ZOffice 集成接口<span style="color:red">【需要自行实现】</span>
+具体实现方案请查阅技术文档：[ZOffice 集成文档](https://api.filez.com/office/docs/docs-api/get-started/overview)
 - `GET /v2/context/driver-cb` - 获取前端集成URL
 - `GET /v2/context/{docId}/content` - 下载文件内容
 - `POST /v2/context/{docId}/content` - 上传文件内容
@@ -201,7 +198,6 @@ pkill -f filez-demo
 - `GET /home/` - 主页
 - `GET /home/local` - 文件列表页
 - `GET /home/user` - 用户信息页
-- `GET /home/compare` - 文档对比页
 
 ### 日志查看
 ```bash
