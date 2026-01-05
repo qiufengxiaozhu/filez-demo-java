@@ -4,6 +4,10 @@
 
 Filez Demo Java 是一个基于 Spring Boot 的文档管理集成示例项目，主要用于演示如何与 Filez 文档中台进行集成。项目提供了完整的文档上传、下载、删除接口，用户认证、文件元信息修改等功能。并保留了页面菜单上编辑、预览的功能入口（点击文件名进入预览页面，点击编辑按钮打开编辑页面），用户仅需实现业务逻辑即可，方便快速与Filez文档中台进行集成对接。
 
+## 项目截图
+![img.png](src/main/resources/static/img/img.png)
+![img_1.png](src/main/resources/static/img/img_1.png)
+
 ## 核心功能
 
 ### 🔐 用户认证系统
