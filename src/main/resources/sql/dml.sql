@@ -3,6 +3,7 @@
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO sys_user VALUES ('admin',  'admin',  'admin@lenovo_zOffice.com',   NULL, 'admin',  'zOffice', NULL, NULL, NULL);
+INSERT INTO sys_user VALUES ('share',  'share',  'share@lenovo_zOffice.com',   NULL, 'share',  'zOffice', NULL, NULL, NULL);
 INSERT INTO sys_user VALUES ('user_1', 'user_1', 'user_1@lenovo_zOffice.com',  NULL, 'user_1', 'zOffice', NULL, NULL, NULL);
 INSERT INTO sys_user VALUES ('user_2', 'user_2', 'user_2@lenovo_zOffice.com',  NULL, 'user_2', 'zOffice', NULL, NULL, NULL);
 INSERT INTO sys_user VALUES ('user_3', 'user_3', 'user_3@lenovo_zOffice.com',  NULL, 'user_3', 'zOffice', NULL, NULL, NULL);

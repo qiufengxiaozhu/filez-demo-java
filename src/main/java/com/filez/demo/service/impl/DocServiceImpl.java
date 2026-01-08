@@ -180,15 +180,37 @@ public class DocServiceImpl implements FileAlterationListener, DocService {
         SysUserEntity currentUser = UserContext.getCurrentUser();
         SysUserEntity user;
         
+        String fileName = file.getName();
+        // 判断是否是初始的共享文件
+        boolean isInitialSharedFile = fileName.equals("local-docx.docx") 
+                || fileName.equals("local-pptx.pptx") 
+                || fileName.equals("local-xlsx.xlsx");
+        
         if (currentUser == null) {
-            // 如果没有当前用户（如应用启动时），使用默认管理员用户
-            List<SysUserEntity> allUsers = sysUserService.getAllUser();
-            if (allUsers.isEmpty()) {
-                log.warn("系统中没有用户，跳过文件: {}", file.getName());
-                return;
+            // 如果没有当前用户（如应用启动时）
+            if (isInitialSharedFile) {
+                // 初始共享文件使用 share 用户
+                user = sysUserService.getUserById("share");
+                if (user == null) {
+                    // 如果 share 用户不存在，使用第一个用户
+                    List<SysUserEntity> allUsers = sysUserService.getAllUser();
+                    if (allUsers.isEmpty()) {
+                        log.warn("系统中没有用户，跳过文件: {}", fileName);
+                        return;
+                    }
+                    user = allUsers.get(0);
+                }
+                log.info("使用共享用户 {} 创建初始文件记录: {}", user.getName(), fileName);
+            } else {
+                // 其他文件使用默认管理员用户
+                List<SysUserEntity> allUsers = sysUserService.getAllUser();
+                if (allUsers.isEmpty()) {
+                    log.warn("系统中没有用户，跳过文件: {}", fileName);
+                    return;
+                }
+                user = allUsers.get(0);
+                log.info("使用默认用户 {} 创建文件记录: {}", user.getName(), fileName);
             }
-            user = allUsers.get(0); // 使用第一个用户作为默认用户
-            log.info("使用默认用户 {} 创建文件记录: {}", user.getName(), file.getName());
         } else {
             user = sysUserService.getUserById(currentUser.getId());
         }
